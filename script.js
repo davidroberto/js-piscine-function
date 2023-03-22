@@ -15,39 +15,32 @@ const createTag = (tagName, className, imageSource, text, parentTag) => {
 
   parentTag.append(tagElement);
 };
-// PAGE 1
 
 const root = document.querySelector("#root");
 
 createTag("header", "header", null, null, root);
 createTag("main", "main", null, null, root);
+createTag("button", "link-to-articles", null, "Articles", root);
+createTag("button", "link-to-home", null, "Accueil", root);
 createTag("footer", "footer", null, null, root);
+
+const homeComponent = () => {
+  createTag(
+    "img",
+    "img-main",
+    "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
+    null,
+    mainTag
+  );
+  createTag("h1", "title-page-1", null, "Bonjour La piscine", mainTag);
+  createTag("p", "text-page-1", null, "blabblablalablalabla", mainTag);
+  createTag("p", "text-page-1", null, "blabblablalablalabla 2", mainTag);
+};
 
 // cibler la balise main et la stocker dans une variable
 const mainTag = document.querySelector(".main");
 
-createTag(
-  "img",
-  "img-main",
-  "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
-  null,
-  mainTag
-);
-createTag("h1", "title-page-1", null, "Bonjour La piscine", mainTag);
-createTag("p", "text-page-1", null, "blabblablalablalabla", mainTag);
-createTag("p", "text-page-1", null, "blabblablalablalabla 2", mainTag);
-
-// PAGE 2
-
-// créer un lien
-createTag("button", "link-to-articles", null, "Voir les articles", mainTag);
-// cibler le lien et ajouter un event listener
-const button = document.querySelector(".link-to-articles");
-
-button.addEventListener("click", () => {
-  // efface le HTML actuel sauf le header et le footer
-  mainTag.innerHTML = "";
-  // on créé le HTML (via le js) contenant les articles
+const articlesComponent = () => {
   createTag(
     "img",
     "image-article-1",
@@ -77,4 +70,21 @@ button.addEventListener("click", () => {
     mainTag
   );
   createTag("h2", "title-article-1", null, "mon chien rutilant 4", mainTag);
+};
+
+homeComponent();
+
+const buttonHome = document.querySelector(".link-to-home");
+
+buttonHome.addEventListener("click", () => {
+  mainTag.innerHTML = "";
+  homeComponent();
+});
+
+const buttonArticles = document.querySelector(".link-to-articles");
+
+buttonArticles.addEventListener("click", () => {
+  // efface le HTML actuel sauf le header et le footer
+  mainTag.innerHTML = "";
+  articlesComponent();
 });
